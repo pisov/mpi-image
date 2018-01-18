@@ -1,24 +1,28 @@
-# Compile with Intel fortran compiler
+1. Compile with Intel fortran compiler
 
 module load ifort
 
 ifort serial.f90 fio.f90 -o img.x
 
-# Compile with gfortran compiler
+2. Compile with gfortran compiler
+
+or
+
+make
 
 gfortran -O3 serial.f90 fio.f90 -o img.x
 
-# Execute
+3. Execute
 
 ./img.x
 
-# View the output on Linux
+4. View the output on Linux
 
 display image.pgm
 
-# View remotely from Windows machine
+5. View remotely from Windows machine
 
 convert image.pgm image.png
 
-# Transfer image.png to local Windows machine
+6. Transfer image.png to local Windows machine
 

@@ -6,7 +6,7 @@ integer m,n,k,numit,nn
 parameter (m = 239)
 parameter (n = 432)
 ! change numit to 0 to see the original picture
-parameter (numit = 500000)
+parameter (numit = 10000)
 character (len=32) :: filename
 
 integer MPI_COMM_CART
@@ -14,10 +14,6 @@ integer, dimension(1) :: dims
 logical, dimension(1) :: periods
 integer :: ierror, up, down, my_rank, comm_size, tag
 double precision :: time
-
-!real, dimension(0:m+1,0:n+1) :: im, old, new
-!real, dimension(m,n) :: buf
-
 real, allocatable, dimension(:,:) :: im, old, new, buf
 
 call MPI_Init(ierror)
@@ -36,12 +32,12 @@ allocate(old(0:m+1,0:n+1))
 allocate(new(0:m+1,0:n+1))
 allocate(buf(m,n))
 
-im(:,:)  = 0.e0
-old(:,:) = 0.e0	
+im(:,  :) = 0.d0
+old(:, :) = 0.d0
 
 if (my_rank.eq.0) then
   write(filename,'(a,I3,a,I3,a)'),"edge",m,"x",n,".dat"
-  call datread(filename,buf,m,n)
+  call datread(filename, buf, m, n)
 end if
 
 ! Number of processes should divide n
@@ -51,14 +47,13 @@ nn = n / comm_size
 time = MPI_Wtime()
 
 ! Dispatch the data across processes
-
+write(0, *) 'Scatter begin'
 if (my_rank.eq.0) then
   call MPI_Scatter(buf, nn * m, MPI_REAL, MPI_IN_PLACE, nn * m, MPI_REAL, 0, MPI_COMM_CART, ierror)
 else
   call MPI_Scatter(buf, nn * m, MPI_REAL,          buf, nn * m, MPI_REAL, 0, MPI_COMM_CART, ierror)
 end if
-
-
+write(0, *) 'Scatter completed'
 im(1:m,1:nn) = buf(1:m,1:nn)
 old(1:m,1:nn) = buf(1:m,1:nn)
 

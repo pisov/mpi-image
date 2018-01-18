@@ -2,9 +2,9 @@
 
 	implicit none
 	integer m,n,i,j,k,numit,nn,mm
-	parameter (m = 239)
-	parameter (n = 432)
-	parameter (numit = 5000)
+	parameter (m = 600)
+	parameter (n = 450)
+	parameter (numit = 10000)
         character (len=32) :: filename
 	
 	real im(0:m+1,0:n+1),old(0:m+1,0:n+1),new(0:m+1,0:n+1)

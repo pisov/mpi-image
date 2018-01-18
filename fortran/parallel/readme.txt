@@ -1,23 +1,26 @@
-# Compile with MPI Fortran compiler
+1. Compile with MPI Fortran compiler
 
 module load openmpi
 
 mpif90 parallel.f90 fio.f90 -o img.x
 
+or
 
-# Execute on N = 1, 2, 4, or 8 processes watch execution time
+make
+
+2. Execute on N = 1, 2, 4, or 8 processes watch execution time
 
 mpirun -n N img.x
 
-# View the output on Linux
+3. View the output on Linux
 
 display image.pgm
 
-# View remotely from Windows machine
+4. View remotely from Windows machine
 
 convert image.pgm image.png
 
-# Transfer image.png to local Windows machine
+5. Transfer image.png to local Windows machine
 
-# Change the input image with n = 344 and m = 600
+Task: Change the input image with n = 344 and m = 600
 
